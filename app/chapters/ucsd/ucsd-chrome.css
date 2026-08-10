@@ -1,0 +1,30 @@
+/*
+ * Loaded only by app/chapters/ucsd/layout.tsx.
+ * While any UCSD chapter page is mounted, hide site-wide chrome that the
+ * root layout still renders — no edits to shared components required.
+ */
+
+/* Main site Navigation (fixed top bar without our data-ucsd-nav marker) */
+body:has([data-ucsd-chapter]) nav.fixed.top-0.left-0.right-0:not([data-ucsd-nav]) {
+  display: none !important;
+  pointer-events: none !important;
+}
+
+/* LoadingStinger: full-viewport overlay at z-index 9999 */
+body:has([data-ucsd-chapter]) div[style*='z-index: 9999'] {
+  display: none !important;
+  pointer-events: none !important;
+  visibility: hidden !important;
+}
+
+/*
+ * Footer column titles ("Navigate", "Community") on UCSD chapter pages only.
+ * Source text is already title case; override site-wide uppercase tracking.
+ */
+body:has([data-ucsd-chapter]) footer h3 {
+  text-transform: none !important;
+  font-weight: 700 !important;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  letter-spacing: normal;
+}
