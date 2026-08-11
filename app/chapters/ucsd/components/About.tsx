@@ -1,10 +1,7 @@
 'use client'
 
 import React from 'react';
-import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
 import MotionSection from '@/app/components/motion/MotionSection';
-import { UCSD_EVENTS } from '../lib/links';
 import media from '../lib/media';
 
 export default function About() {
@@ -21,8 +18,8 @@ export default function About() {
 
       <div className="relative z-[1] max-w-6xl mx-auto">
         <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-stretch">
-          {/* Text column — top: what we do, middle: CTA, bottom: who can join (aligned with collage) */}
-          <div className="lg:col-span-5 flex flex-col gap-10 lg:h-full lg:gap-0">
+          {/* Text column — top: what we do, bottom: who can join (aligned with collage) */}
+          <div className="lg:col-span-5 flex flex-col gap-10 lg:h-full lg:justify-between">
             <MotionSection>
               <h2 className="font-display text-3xl md:text-5xl text-white tracking-tight leading-[1.08] prismatic-glow-sm">
                 What we do.
@@ -42,21 +39,7 @@ export default function About() {
               </ul>
             </MotionSection>
 
-            {/* Between the two copy blocks; slightly above true center on desktop */}
-            <MotionSection
-              delay={0.08}
-              className="max-w-md flex justify-center lg:flex-1 lg:items-center lg:-translate-y-12"
-            >
-              <Link
-                href={UCSD_EVENTS}
-                className="btn-outline-glow px-8 py-3.5 text-sm font-bold tracking-wide rounded-sm inline-flex items-center gap-2.5"
-              >
-                see all events
-                <ArrowRight className="w-4 h-4" strokeWidth={2} />
-              </Link>
-            </MotionSection>
-
-            <MotionSection delay={0.12} className="max-w-md lg:mt-auto lg:-translate-y-14">
+            <MotionSection delay={0.08} className="max-w-md">
               <h2 className="font-display text-3xl md:text-5xl text-white tracking-tight leading-[1.08] prismatic-glow-sm">
                 Who can join.
               </h2>
@@ -72,19 +55,16 @@ export default function About() {
             <MotionSection delay={0.08} className="w-full">
               <div className="grid grid-cols-2 gap-3 sm:gap-4">
                 {media.about.map((tile) => (
-                  <a
+                  <div
                     key={tile.id}
-                    href={tile.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group relative aspect-square overflow-hidden rounded-lg border border-white/[0.08] bg-white/[0.02] transition-all duration-300 hover:border-white/25 hover:z-10"
+                    className="relative aspect-square overflow-hidden rounded-lg border border-white/[0.08] bg-white/[0.02]"
                     style={{ transform: `rotate(${tile.rotate})` }}
                   >
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={tile.cover}
                       alt={tile.title}
-                      className="absolute inset-0 h-full w-full object-cover opacity-80 transition-opacity duration-300 group-hover:opacity-95"
+                      className="absolute inset-0 h-full w-full object-cover opacity-85"
                       onError={(e) => {
                         // Fallback wash if photo not dropped in yet
                         e.currentTarget.style.display = 'none';
@@ -103,7 +83,7 @@ export default function About() {
                         {tile.title}
                       </h4>
                     </div>
-                  </a>
+                  </div>
                 ))}
               </div>
             </MotionSection>

@@ -3,12 +3,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { animate, useInView } from 'motion/react';
 import { EASE_SOFT } from '@/lib/motion';
+import media from '../lib/media';
 
 const stats = [
-  { value: 500, suffix: '+', label: 'Members' },
-  { value: 85, suffix: '', label: 'Projects shipped' },
-  { value: 24, suffix: '', label: 'Demo nights / yr' },
-  { value: 5, suffix: '', label: 'Companies started' },
+  { value: media.stats.attendees, suffix: '+', label: 'Attendees hosted' },
+  { value: media.stats.events, suffix: '+', label: 'Events run' },
+  { value: media.stats.hackathons, suffix: '+', label: 'Hackathons organized' },
 ];
 
 function Count({ to, suffix }: { to: number; suffix?: string }) {
@@ -28,7 +28,7 @@ function Count({ to, suffix }: { to: number; suffix?: string }) {
 
   return (
     <span ref={ref}>
-      {val}
+      {val.toLocaleString('en-US')}
       {suffix}
     </span>
   );
@@ -36,29 +36,19 @@ function Count({ to, suffix }: { to: number; suffix?: string }) {
 
 export default function SpecStrip() {
   return (
-    <section className="relative border-b border-white/[0.08]">
-      <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4">
-        {stats.map((stat, i) => (
-          <div
-            key={stat.label}
-            className={`px-6 py-10 md:py-14 text-center md:text-left border-white/[0.06] ${
-              [
-                '',
-                'border-l',
-                'border-t md:border-t-0 md:border-l',
-                'border-l border-t md:border-t-0',
-              ][i]
-            }`}
-          >
-            <span className="block font-display text-5xl md:text-6xl text-white/90 tracking-tight">
+    <div className="relative z-10 w-full max-w-2xl mx-auto px-4">
+      <div className="grid grid-cols-3 divide-x divide-white/10">
+        {stats.map((stat) => (
+          <div key={stat.label} className="px-4 md:px-6 text-center">
+            <span className="block font-display text-2xl md:text-3xl text-white/90 tracking-tight">
               <Count to={stat.value} suffix={stat.suffix} />
             </span>
-            <span className="block mt-3 text-[10px] uppercase tracking-widest text-white/30">
+            <span className="block mt-1.5 text-[10px] uppercase tracking-widest text-white/35">
               {stat.label}
             </span>
           </div>
         ))}
       </div>
-    </section>
+    </div>
   );
 }

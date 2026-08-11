@@ -3,15 +3,21 @@
 import React from 'react';
 import Hero from './components/Hero';
 import About from './components/About';
-import Stats from './components/Stats';
+import Projects from './components/Projects';
+import Rhythm from './components/Rhythm';
+import PastEvents from './components/PastEvents';
+import Leads from './components/Leads';
 import StartBuilding from './components/StartBuilding';
 
 export default function UCSDChapterPage() {
   return (
     <main className="relative">
       <Hero />
-      <Stats />
       <About />
+      <PastEvents compact />
+      <Leads />
+      <Projects />
+      <Rhythm />
       <StartBuilding />
     </main>
   );

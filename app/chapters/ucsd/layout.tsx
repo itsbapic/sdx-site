@@ -1,6 +1,4 @@
 import type { Metadata } from 'next';
-import UcsdNav from './components/UcsdNav';
-import './ucsd-chrome.css';
 
 export const metadata: Metadata = {
   title: {
@@ -16,10 +14,5 @@ export default function UCSDChapterLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return (
-    <div data-ucsd-chapter>
-      <UcsdNav />
-      {children}
-    </div>
-  );
+  return children;
 }

@@ -16,7 +16,7 @@ export default function Leads() {
   return (
     <section className="relative py-16 md:py-20 px-4 sm:px-6 lg:px-8 border-t border-white/5">
       <div className="max-w-6xl mx-auto">
-        <SectionTag index="005" label="The people" heading="Run by students." className="mb-4" />
+        <SectionTag index="002" label="The people" heading="Run by students." className="mb-4" />
 
         <MotionGrid className="grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-10" staggerDelay={0.08}>
           {leads.map((lead) => (

@@ -104,7 +104,16 @@ const STATUS_DOT: Record<string, string> = {
   Research: '#035593',
 };
 
-const projects = [
+type Project = {
+  name: string;
+  desc: string;
+  tags: string[];
+  status: string;
+  featured?: boolean;
+  url?: string;
+};
+
+const projects: Project[] = [
   {
     name: 'TritonGPT',
     desc: 'RAG over the entire UCSD course catalog. Answers "what should I take?" with actual data.',
@@ -138,21 +147,22 @@ const projects = [
   },
 ];
 
-function ProjectCard({ project }: { project: (typeof projects)[number] }) {
-  const onMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+function ProjectCard({ project }: { project: Project }) {
+  const onMouseMove = (e: React.MouseEvent<HTMLDivElement | HTMLAnchorElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
     e.currentTarget.style.setProperty('--mx', `${e.clientX - rect.left}px`);
     e.currentTarget.style.setProperty('--my', `${e.clientY - rect.top}px`);
   };
 
-  return (
-    <div
-      onMouseMove={onMouseMove}
-      className={`${styles.spot} group h-full rounded-lg border border-white/[0.06] bg-white/[0.02] backdrop-blur-sm p-6 flex flex-col transition-colors duration-300 hover:border-white/[0.15]`}
-    >
+  const cardClassName = `${styles.spot} group h-full rounded-lg border border-white/[0.06] bg-white/[0.02] backdrop-blur-sm p-6 flex flex-col transition-colors duration-300 hover:border-white/[0.15]`;
+
+  const content = (
+    <>
       <div className="flex items-start justify-between gap-4 mb-3">
         <h3 className="font-display text-xl text-white tracking-tight">{project.name}</h3>
-        <ArrowUpRight className="w-4 h-4 text-white/30 transition-all duration-300 group-hover:text-white/80 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+        {project.url && (
+          <ArrowUpRight className="w-4 h-4 text-white/30 transition-all duration-300 group-hover:text-white/80 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+        )}
       </div>
       <p className="text-sm text-white/40 leading-relaxed flex-1">{project.desc}</p>
       <div className="mt-5 flex items-center justify-between gap-3">
@@ -174,6 +184,26 @@ function ProjectCard({ project }: { project: (typeof projects)[number] }) {
           {project.status}
         </span>
       </div>
+    </>
+  );
+
+  if (project.url) {
+    return (
+      <a
+        href={project.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        onMouseMove={onMouseMove}
+        className={cardClassName}
+      >
+        {content}
+      </a>
+    );
+  }
+
+  return (
+    <div onMouseMove={onMouseMove} className={cardClassName}>
+      {content}
     </div>
   );
 }
